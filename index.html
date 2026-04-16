@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSI Investor Type — Bạn đầu tư kiểu gì?</title>
+<meta name="description" content="6 câu hỏi. Không có đáp án đúng sai. Chỉ có kết quả đúng đến mức hơi khó chịu.">
+<meta property="og:title" content="SSI Investor Type — Bạn đầu tư kiểu gì?">
+<meta property="og:description" content="Làm quiz 2 phút để biết bạn là HOLD-ER, PANIC, YOLO hay CHILL. Kết quả dễ share.">
+<meta property="og:type" content="website">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f5f5f3;
+    --text: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-tertiary: #9b9b9b;
+    --border: rgba(0,0,0,0.12);
+    --border-strong: rgba(0,0,0,0.25);
+    --blue-bg: #e6f1fb;
+    --blue-text: #0c447c;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a;
+      --bg-secondary: #242424;
+      --text: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-tertiary: #6b6b6b;
+      --border: rgba(255,255,255,0.12);
+      --border-strong: rgba(255,255,255,0.25);
+      --blue-bg: #0c2a4a;
+      --blue-text: #85b7eb;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  #app {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+  .logo-badge {
+    background: var(--blue-bg);
+    color: var(--blue-text);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .logo-sep { color: var(--text-tertiary); font-size: 13px; }
+  .logo-sub { font-size: 13px; color: var(--text-tertiary); }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* Start screen */
+  .start-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue-text);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .start-title {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .start-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+  .type-chip {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .type-chip strong { font-size: 12px; font-weight: 600; display: block; }
+  .type-chip small { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; display: block; }
+
+  /* Quiz screen */
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .q-counter { font-size: 12px; color: var(--text-tertiary); }
+  .progress-bar {
+    height: 3px;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #378ADD;
+    border-radius: 2px;
+    transition: width 0.35s ease;
+  }
+  .question-text {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt-btn {
+    background: var(--bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: 13px 15px;
+    font-size: 14px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.5;
+    transition: background 0.12s, border-color 0.12s, transform 0.1s;
+    font-family: inherit;
+  }
+  .opt-btn:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    border-color: #378ADD;
+  }
+  .opt-btn.selected {
+    background: var(--blue-bg);
+    border-color: #378ADD;
+    color: var(--blue-text);
+    transform: scale(0.99);
+  }
+  .opt-btn:disabled { cursor: default; }
+
+  /* Result screen */
+  .result-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--text-tertiary);
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .result-type-code {
+    font-size: 52px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .result-type-name {
+    font-size: 16px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+  .result-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .roast {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--border-strong);
+    padding-left: 12px;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .result-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .trait-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .trait {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 0.5px solid var(--border);
+  }
+  .feature-rec {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .feature-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Share card */
+  .share-card {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .share-label { font-size: 11px; color: var(--text-tertiary); margin-bottom: 6px; }
+  .share-code { font-size: 36px; font-weight: 700; letter-spacing: 2px; margin-bottom: 2px; }
+  .share-name { font-size: 13px; color: var(--text-secondary); margin-bottom: 1rem; }
+
+  /* Buttons */
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s, transform 0.1s;
+    margin-bottom: 8px;
+    border: 0.5px solid var(--border-strong);
+    background: transparent;
+    color: var(--text);
+  }
+  .btn:hover { background: var(--bg-secondary); }
+  .btn:active { transform: scale(0.99); }
+  .btn-primary {
+    background: #185FA5;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    padding: 14px 20px;
+  }
+  .btn-primary:hover { background: #0c447c; }
+  .btn-share {
+    background: var(--blue-bg);
+    color: var(--blue-text);
+    border: none;
+    font-weight: 600;
+  }
+  .btn-share:hover { opacity: 0.85; }
+
+  .copy-toast {
+    display: none;
+    text-align: center;
+    font-size: 13px;
+    color: #0f6e56;
+    background: #e1f5ee;
+    border-radius: var(--radius-md);
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+  .copy-toast.show { display: block; }
+
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .footer a { color: var(--blue-text); text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="logo">
+    <span class="logo-badge">SSI</span>
+    <span class="logo-sep">×</span>
+    <span class="logo-sub">Investor Type Quiz</span>
+  </div>
+
+  <!-- START -->
+  <div id="screen-start" class="screen active">
+    <div class="start-eyebrow">SSI × Investor Type</div>
+    <h1 class="start-title">Bạn đầu tư<br>kiểu gì?</h1>
+    <p class="start-sub">6 câu hỏi. Không có đáp án đúng sai.<br>Chỉ có kết quả đúng đến mức hơi khó chịu.</p>
+    <div class="type-grid">
+      <div class="type-chip"><strong>HOLD-ER</strong><small>Đá tảng</small></div>
+      <div class="type-chip"><strong>PANIC</strong><small>Trốn chạy</small></div>
+      <div class="type-chip"><strong>YOLO</strong><small>Bạo gan</small></div>
+      <div class="type-chip"><strong>LURK-R</strong><small>Rình mò</small></div>
+      <div class="type-chip"><strong>FOMO-D</strong><small>Bỏ lỡ</small></div>
+      <div class="type-chip"><strong>THINK-R</strong><small>Phân tích</small></div>
+      <div class="type-chip"><strong>ATM-R</strong><small>Mạnh tay</small></div>
+      <div class="type-chip"><strong>CHILL</strong><small>Tự động</small></div>
+    </div>
+    <button class="btn btn-primary" onclick="startQuiz()">Bắt đầu làm quiz →</button>
+    <p style="text-align:center;font-size:12px;color:var(--text-tertiary);margin-top:8px">Mất khoảng 2 phút · Kết quả có thể share</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="screen">
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">Câu 1 / 6</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="screen-result" class="screen">
+    <div class="result-eyebrow">Kết quả của bạn</div>
+    <div class="result-type-code" id="res-type"></div>
+    <div class="result-type-name" id="res-name"></div>
+    <div class="result-card">
+      <div class="roast" id="res-roast"></div>
+      <div class="result-desc" id="res-desc"></div>
+      <div class="trait-row" id="res-traits"></div>
+      <div class="feature-rec">
+        <span class="feature-label">SSI gợi ý cho bạn</span>
+        <span id="res-feature"></span>
+      </div>
+    </div>
+    <div class="share-card">
+      <div class="share-label">Chia sẻ kết quả của bạn</div>
+      <div class="share-code" id="share-code"></div>
+      <div class="share-name" id="share-name"></div>
+      <button class="btn btn-share" onclick="shareResult()">Chia sẻ kết quả này</button>
+      <div class="copy-toast" id="copy-toast">Đã copy! Paste vào Stories, chat hay đâu bạn muốn.</div>
+    </div>
+    <button class="btn" onclick="resetQuiz()">Làm lại từ đầu</button>
+  </div>
+
+  <div class="footer">
+    <strong>SSI Securities Corporation</strong><br>
+    Quiz này mang tính giải trí và giáo dục. Không phải khuyến nghị đầu tư.<br>
+    <a href="https://www.ssi.com.vn" target="_blank">ssi.com.vn</a>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "Thị trường giảm 8% trong một tuần. Bạn làm gì?",
+    options: [
+      { text: "Mở app xem rồi đóng lại, không làm gì cả", score: { HOLD: 2 } },
+      { text: "Bán ngay trước khi giảm thêm", score: { PANIC: 2 } },
+      { text: "Mua thêm vì giá rẻ hơn rồi", score: { YOLO: 1, THINK: 1 } },
+      { text: "Xem tin tức 4 tiếng liên tục nhưng không đặt lệnh", score: { LURK: 2 } }
+    ]
+  },
+  {
+    text: "Bạn nghe bạn bè nói 'cổ phiếu X sắp tăng gấp đôi'. Phản xạ đầu tiên?",
+    options: [
+      { text: "Vào ngay, hỏi sau", score: { YOLO: 2, FOMO: 1 } },
+      { text: "Research kỹ trước khi quyết định", score: { THINK: 2 } },
+      { text: "Bỏ lỡ rồi mới tiếc khi nó tăng thật", score: { FOMO: 2 } },
+      { text: "Không tin, nhưng hỏi thêm cho biết", score: { LURK: 1, THINK: 1 } }
+    ]
+  },
+  {
+    text: "Cách bạn quản lý tiền tháng này?",
+    options: [
+      { text: "Tự động chuyển vào tài khoản đầu tư trước khi tiêu", score: { CHILL: 3 } },
+      { text: "Chi hết rồi mới nghĩ đến đầu tư", score: { ATM: 2, FOMO: 1 } },
+      { text: "Có kế hoạch rõ ràng, theo dõi từng khoản", score: { THINK: 2 } },
+      { text: "Tuỳ tháng, không nhất quán lắm", score: { PANIC: 1, LURK: 1 } }
+    ]
+  },
+  {
+    text: "Danh mục của bạn trông như thế nào?",
+    options: [
+      { text: "Toàn cổ phiếu một công ty vì tin tưởng tuyệt đối", score: { YOLO: 2, HOLD: 1 } },
+      { text: "Đa dạng, có ETF, có cổ phiếu, có chứng chỉ quỹ", score: { THINK: 2, CHILL: 1 } },
+      { text: "Chưa có danh mục, đang 'chuẩn bị'", score: { LURK: 2, FOMO: 1 } },
+      { text: "Từng có nhưng bán hết rồi vì lo", score: { PANIC: 3 } }
+    ]
+  },
+  {
+    text: "Khi đầu tư lãi, bạn thường làm gì?",
+    options: [
+      { text: "Tiếp tục giữ, lãi kép mà", score: { HOLD: 2, CHILL: 1 } },
+      { text: "Rút ra xài một phần, xứng đáng mà", score: { ATM: 2 } },
+      { text: "Mua thêm ngay khi đang thắng", score: { YOLO: 2 } },
+      { text: "Lo ngại nó sắp quay đầu, không dám làm gì", score: { PANIC: 2, THINK: 1 } }
+    ]
+  },
+  {
+    text: "Mô tả quan hệ của bạn với ứng dụng chứng khoán?",
+    options: [
+      { text: "Mở 10 lần/ngày, hiếm khi đặt lệnh", score: { LURK: 3 } },
+      { text: "Set tự động, ít khi mở", score: { CHILL: 3 } },
+      { text: "Mở khi thị trường xấu, đóng khi sợ", score: { PANIC: 2 } },
+      { text: "Dùng thường xuyên, phân tích nghiêm túc", score: { THINK: 2, HOLD: 1 } }
+    ]
+  }
+];
+
+const types = {
+  HOLD: {
+    code: "HOLD-ER", name: "Đá tảng",
+    roast: "Bạn có thể ngồi yên nhìn danh mục giảm 20% mà vẫn ngủ ngon. Không ai biết đó là bản lĩnh hay bạn... quên mất mình đang có tài khoản.",
+    desc: "Bạn tin vào dài hạn, không bị xáo trộn bởi noise ngắn hạn. Sự kiên nhẫn là superpower — nhưng đôi khi cần chủ động review lại danh mục thay vì chỉ giữ vì lười.",
+    traits: ["Kiên nhẫn", "Không bị FOMO", "Tư duy dài hạn", "Cần review định kỳ"],
+    feature: "eSIP là tính năng dành cho bạn — tích sản chứng chỉ quỹ tự động, không cần nhớ, không cần lo. Set một lần, HOLD mãi mãi."
+  },
+  PANIC: {
+    code: "PANIC", name: "Trốn chạy",
+    roast: "Thị trường hắt hơi một cái là bạn đã sẵn sàng thanh lý toàn bộ. Portfolio của bạn có lẽ đã mua đỉnh và bán đáy ít nhất một lần rồi.",
+    desc: "Bạn nhạy cảm với biến động, điều đó không sai — nhưng đang bị cảm xúc chi phối nhiều hơn dữ liệu. Cần một hệ thống tự động để tay không can thiệp vào quyết định đầu tư.",
+    traits: ["Nhạy cảm thị trường", "Thiếu hệ thống", "Dễ buy high sell low", "Cần discipline"],
+    feature: "eSIP là thứ bạn cần nhất — tự động hoá quyết định để cảm xúc không còn là kẻ thù."
+  },
+  YOLO: {
+    code: "YOLO", name: "Bạo gan",
+    roast: "Bạn đã all-in ít nhất một lần vào thứ gì đó vì 'cảm giác'. Nếu nó thắng, bạn gọi đó là thiên tài. Nếu thua, bạn nói thị trường bất công.",
+    desc: "Bạn có courage — thứ nhiều người thiếu. Vấn đề là courage không có risk management thì là... gambling. Một chút structure sẽ biến năng lượng đó thành lợi thế thật sự.",
+    traits: ["Dũng cảm", "Thiếu risk management", "High conviction", "Học từ thực chiến"],
+    feature: "Summer Portfolio hợp với bạn — sóng có chọn lọc, danh mục có cơ sở phân tích, không phải all-in mù."
+  },
+  LURK: {
+    code: "LURK-R", name: "Rình mò",
+    roast: "Bạn đã theo dõi thị trường 6 tháng, đọc hàng trăm bài phân tích, biết hết mọi cổ phiếu tiềm năng — nhưng vẫn chưa đặt lệnh đầu tiên. 'Chờ thêm tí nữa...'",
+    desc: "Bạn thông minh và cẩn thận, nhưng đang paralysis by analysis. Mọi thời điểm đều có rủi ro — điều đó không bao giờ thay đổi. Bắt đầu nhỏ quan trọng hơn bắt đầu hoàn hảo.",
+    traits: ["Nghiên cứu kỹ", "Sợ sai", "Chưa hành động", "Tiềm năng cao nếu bắt đầu"],
+    feature: "eSIP — bắt đầu nhỏ, tự động, không cần thời điểm hoàn hảo. Bẫy 'chờ thêm' kết thúc hôm nay."
+  },
+  FOMO: {
+    code: "FOMO-D", name: "Bỏ lỡ",
+    roast: "Bạn có tài năng đặc biệt: luôn vào sau khi cổ phiếu đã tăng 30% và ra ngay trước khi nó tăng thêm 50%. Timing của bạn... rất đặc trưng.",
+    desc: "FOMO là cảm xúc tự nhiên, nhưng đang là kẻ thù số một của lợi nhuận. Bạn cần hệ thống đầu tư không phụ thuộc vào cảm giác 'bây giờ hoặc không bao giờ'.",
+    traits: ["Nhạy bén với cơ hội", "Hay vào trễ", "Bị cảm xúc dẫn", "Cần kỷ luật thời điểm"],
+    feature: "iEarn — giới thiệu bạn bè cùng đầu tư, cùng thắng. Biến FOMO thành cộng đồng."
+  },
+  THINK: {
+    code: "THINK-R", name: "Phân tích",
+    roast: "Bạn có spreadsheet theo dõi portfolio với 12 cột. Bạn đọc báo cáo tài chính như người khác đọc tin nhắn. Bạn hơi nerd — nhưng portfolio của bạn cảm ơn bạn vì điều đó.",
+    desc: "Bạn tiếp cận đầu tư nghiêm túc và có nền tảng vững. Điểm mạnh là analysis, điểm cần phát triển là đừng để overthink làm chậm quyết định đúng đắn.",
+    traits: ["Dữ liệu làm chủ", "Kỷ luật cao", "Đôi khi overthink", "Nền tảng vững"],
+    feature: "Summer Portfolio — danh mục có nghiên cứu, có cơ sở vĩ mô. Bạn sẽ hiểu tại sao từng cổ phiếu được chọn."
+  },
+  ATM: {
+    code: "ATM-R", name: "Mạnh tay",
+    roast: "Mỗi khi thị trường tốt, bạn rút ra xài. Mỗi khi cần tiền, bạn bán cổ phiếu. Portfolio của bạn đang kiêm chức năng ATM — không ai thiết kế nó như vậy.",
+    desc: "Bạn có thu nhập và không ngại đầu tư — đó là điểm mạnh thật sự. Nhưng đang thiếu sự tách biệt giữa tiền đầu tư và tiền tiêu dùng. Một chút automation sẽ thay đổi hoàn toàn kết quả.",
+    traits: ["Sẵn sàng xuống tiền", "Thiếu tách biệt tài khoản", "Tư duy ngắn hạn", "Tiềm năng cao"],
+    feature: "iEarn + eSIP — xây thói quen tích sản đều đặn, và giới thiệu bạn bè cùng có kỷ luật."
+  },
+  CHILL: {
+    code: "CHILL", name: "Tự động",
+    roast: "Bạn set auto-invest từ hồi tháng 3 rồi quên mất. Đến tháng 12 mở app mới thấy danh mục tăng. Bạn không phải thiên tài — bạn chỉ lười theo cách đúng nhất.",
+    desc: "Automation mindset là một trong những approach đầu tư thông minh nhất về mặt tâm lý. Bạn loại bỏ bias cảm xúc và để compound interest làm việc. Chỉ cần đảm bảo đang đầu tư vào đúng chỗ.",
+    traits: ["Automation first", "Không bị noise", "Compound mindset", "Cần review định kỳ"],
+    feature: "eSIP là công cụ sinh ra dành cho bạn — tích sản chứng chỉ quỹ tự động, đúng cách bạn sống."
+  }
+};
+
+let scores = {};
+let current = 0;
+let resultType = null;
+
+function resetScores() {
+  scores = { HOLD: 0, PANIC: 0, YOLO: 0, LURK: 0, FOMO: 0, THINK: 0, ATM: 0, CHILL: 0 };
+}
+
+function startQuiz() {
+  resetScores();
+  current = 0;
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('q-counter').textContent = 'Câu ' + (current + 1) + ' / ' + questions.length;
+  document.getElementById('progress').style.width = (current / questions.length * 100) + '%';
+  document.getElementById('q-text').textContent = q.text;
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = '';
+  const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+  shuffled.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = o.text;
+    btn.onclick = () => selectOption(btn, o.score, opts);
+    opts.appendChild(btn);
+  });
+}
+
+function selectOption(btn, score, container) {
+  container.querySelectorAll('.opt-btn').forEach(b => { b.classList.remove('selected'); b.disabled = true; });
+  btn.classList.add('selected');
+  Object.entries(score).forEach(([k, v]) => { if (scores[k] !== undefined) scores[k] += v; });
+  setTimeout(() => {
+    current++;
+    if (current < questions.length) { renderQuestion(); }
+    else { showResult(); }
+  }, 400);
+}
+
+function showResult() {
+  const top = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+  const t = types[top];
+  resultType = t;
+  document.getElementById('res-type').textContent = t.code;
+  document.getElementById('res-name').textContent = t.name;
+  document.getElementById('res-roast').textContent = t.roast;
+  document.getElementById('res-desc').textContent = t.desc;
+  const tr = document.getElementById('res-traits');
+  tr.innerHTML = t.traits.map(x => '<span class="trait">' + x + '</span>').join('');
+  document.getElementById('res-feature').textContent = t.feature;
+  document.getElementById('share-code').textContent = t.code;
+  document.getElementById('share-name').textContent = t.name + ' · SSI Investor Type';
+  document.getElementById('progress').style.width = '100%';
+  document.getElementById('copy-toast').classList.remove('show');
+  showScreen('screen-result');
+}
+
+function shareResult() {
+  if (!resultType) return;
+  const text = 'Tôi vừa làm quiz đầu tư của SSI và ra kết quả: ' + resultType.code + ' — ' + resultType.name + '. ' + resultType.roast.substring(0, 80) + '...\n\nBạn thuộc kiểu nào? 👉 ssi.com.vn';
+  if (navigator.share) {
+    navigator.share({ title: 'SSI Investor Type: ' + resultType.code, text: text });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('copy-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    });
+  }
+}
+
+function resetQuiz() {
+  resetScores();
+  current = 0;
+  showScreen('screen-start');
+}
+</script>
+</body>
+</html>
