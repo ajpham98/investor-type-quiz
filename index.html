@@ -8,377 +8,597 @@
 <meta property="og:title" content="SSI Investor Type — Bạn đầu tư kiểu gì?">
 <meta property="og:description" content="Làm quiz 2 phút để biết bạn là HOLD-ER, PANIC, YOLO hay CHILL. Kết quả dễ share.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  :root {
-    --bg: #ffffff;
-    --bg-secondary: #f5f5f3;
-    --text: #1a1a1a;
-    --text-secondary: #6b6b6b;
-    --text-tertiary: #9b9b9b;
-    --border: rgba(0,0,0,0.12);
-    --border-strong: rgba(0,0,0,0.25);
-    --blue-bg: #e6f1fb;
-    --blue-text: #0c447c;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-  }
+:root{
+  --red:#D0151C;
+  --red-dark:#A01018;
+  --red-light:#FFF0F0;
+  --red-mid:#FFD6D7;
+  --black:#0F0F0F;
+  --white:#FFFFFF;
+  --gray-50:#FAFAFA;
+  --gray-100:#F4F4F4;
+  --gray-200:#E8E8E8;
+  --gray-400:#AAAAAA;
+  --gray-600:#666666;
+  --gray-800:#333333;
+  --text:#0F0F0F;
+  --text-muted:#666666;
+  --text-hint:#AAAAAA;
+  --border:rgba(0,0,0,0.10);
+  --border-strong:rgba(0,0,0,0.18);
+  --radius:10px;
+  --radius-lg:16px;
+  --radius-xl:20px;
+}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1a1a1a;
-      --bg-secondary: #242424;
-      --text: #f0f0f0;
-      --text-secondary: #a0a0a0;
-      --text-tertiary: #6b6b6b;
-      --border: rgba(255,255,255,0.12);
-      --border-strong: rgba(255,255,255,0.25);
-      --blue-bg: #0c2a4a;
-      --blue-text: #85b7eb;
-    }
-  }
+body{
+  font-family:'Be Vietnam Pro',sans-serif;
+  background:var(--gray-50);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 2rem 1rem 4rem;
-  }
+/* HEADER */
+.header{
+  width:100%;
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+}
+.header-logo{
+  font-family:'Space Mono',monospace;
+  font-size:18px;
+  font-weight:700;
+  color:var(--red);
+  letter-spacing:-0.5px;
+}
+.header-tag{
+  font-size:11px;
+  font-weight:500;
+  color:var(--text-muted);
+  letter-spacing:0.5px;
+}
 
-  #app {
-    width: 100%;
-    max-width: 560px;
-  }
+/* MAIN */
+#app{
+  width:100%;
+  max-width:540px;
+  padding:0 16px 80px;
+  flex:1;
+}
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 2rem;
-  }
-  .logo-badge {
-    background: var(--blue-bg);
-    color: var(--blue-text);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.5px;
-  }
-  .logo-sep { color: var(--text-tertiary); font-size: 13px; }
-  .logo-sub { font-size: 13px; color: var(--text-tertiary); }
+.screen{display:none}
+.screen.active{display:block}
 
-  .screen { display: none; }
-  .screen.active { display: block; }
+/* ─── START SCREEN ─── */
+.start-wrap{padding:32px 0 0}
+.start-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  color:var(--red);text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:6px;
+}
+.start-eyebrow::before{
+  content:'';display:inline-block;width:20px;height:2px;background:var(--red);
+}
+.start-h1{
+  font-family:'Space Mono',monospace;
+  font-size:34px;font-weight:700;line-height:1.15;
+  margin-bottom:12px;color:var(--black);
+  letter-spacing:-1px;
+}
+.start-h1 span{color:var(--red)}
+.start-sub{
+  font-size:15px;line-height:1.7;color:var(--text-muted);
+  margin-bottom:28px;font-weight:400;
+}
+.type-ticker{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px;
+}
+.type-chip{
+  background:var(--white);border:1px solid var(--border-strong);
+  border-radius:20px;padding:5px 12px;
+  font-family:'Space Mono',monospace;
+  font-size:11px;font-weight:700;color:var(--gray-800);
+  transition:background .15s,color .15s,border-color .15s;
+}
+.type-chip:hover{background:var(--red);color:var(--white);border-color:var(--red)}
+.type-chip small{
+  font-family:'Be Vietnam Pro',sans-serif;
+  font-weight:400;font-size:10px;color:inherit;margin-left:4px;opacity:.7;
+}
+.btn-start{
+  width:100%;padding:16px;
+  background:var(--red);color:var(--white);border:none;
+  border-radius:var(--radius);font-size:16px;font-weight:600;
+  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;
+  transition:background .15s,transform .1s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-start:hover{background:var(--red-dark)}
+.btn-start:active{transform:scale(.98)}
+.start-note{
+  text-align:center;font-size:12px;color:var(--text-hint);margin-top:10px;
+}
+.start-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px;
+}
+.stat-box{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:12px 10px;text-align:center;
+}
+.stat-num{font-size:20px;font-weight:700;color:var(--red);font-family:'Space Mono',monospace}
+.stat-label{font-size:11px;color:var(--text-hint);margin-top:2px}
 
-  /* Start screen */
-  .start-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--blue-text);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .start-title {
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-  .start-sub {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-  .type-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-bottom: 2rem;
-  }
-  .type-chip {
-    background: var(--bg-secondary);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 8px 6px;
-    text-align: center;
-  }
-  .type-chip strong { font-size: 12px; font-weight: 600; display: block; }
-  .type-chip small { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; display: block; }
+/* ─── QUIZ SCREEN ─── */
+.quiz-wrap{padding:24px 0 0}
+.quiz-meta{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
+}
+.q-num{font-size:12px;font-weight:600;color:var(--text-hint);letter-spacing:.5px}
+.q-num span{color:var(--red)}
+.progress-track{
+  height:3px;background:var(--gray-200);border-radius:2px;margin-bottom:28px;overflow:hidden;
+}
+.progress-fill{
+  height:100%;background:var(--red);border-radius:2px;
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+}
+.question-text{
+  font-size:19px;font-weight:600;line-height:1.5;
+  margin-bottom:20px;color:var(--black);
+}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt-btn{
+  background:var(--white);border:1px solid var(--border-strong);
+  border-radius:var(--radius);padding:14px 16px;
+  font-size:14px;font-weight:400;color:var(--text);
+  cursor:pointer;text-align:left;line-height:1.55;
+  transition:border-color .12s,background .12s,transform .1s;
+  font-family:'Be Vietnam Pro',sans-serif;
+  position:relative;
+}
+.opt-btn::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:0;background:var(--red);border-radius:0 2px 2px 0;
+  transition:height .15s;
+}
+.opt-btn:hover:not(:disabled){
+  border-color:var(--red);background:var(--red-light);
+}
+.opt-btn:hover:not(:disabled)::before{height:60%}
+.opt-btn.selected{
+  background:var(--red-light);border-color:var(--red);color:var(--red-dark);font-weight:500;
+  transform:scale(.99);
+}
+.opt-btn.selected::before{height:70%;background:var(--red)}
+.opt-btn:disabled{cursor:default}
 
-  /* Quiz screen */
-  .q-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-  .q-counter { font-size: 12px; color: var(--text-tertiary); }
-  .progress-bar {
-    height: 3px;
-    background: var(--bg-secondary);
-    border-radius: 2px;
-    margin-bottom: 1.75rem;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: #378ADD;
-    border-radius: 2px;
-    transition: width 0.35s ease;
-  }
-  .question-text {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.5;
-    margin-bottom: 1.25rem;
-  }
-  .options { display: flex; flex-direction: column; gap: 8px; }
-  .opt-btn {
-    background: var(--bg);
-    border: 0.5px solid var(--border-strong);
-    border-radius: var(--radius-lg);
-    padding: 13px 15px;
-    font-size: 14px;
-    color: var(--text);
-    cursor: pointer;
-    text-align: left;
-    line-height: 1.5;
-    transition: background 0.12s, border-color 0.12s, transform 0.1s;
-    font-family: inherit;
-  }
-  .opt-btn:hover:not(:disabled) {
-    background: var(--bg-secondary);
-    border-color: #378ADD;
-  }
-  .opt-btn.selected {
-    background: var(--blue-bg);
-    border-color: #378ADD;
-    color: var(--blue-text);
-    transform: scale(0.99);
-  }
-  .opt-btn:disabled { cursor: default; }
+/* ─── RESULT SCREEN ─── */
+.result-wrap{padding:24px 0 0}
+.result-hero{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-xl);padding:28px 24px 20px;
+  margin-bottom:16px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.result-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);
+}
+.result-illustration{
+  width:120px;height:120px;margin:0 auto 16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.result-illustration svg{width:100%;height:100%}
+.result-code{
+  font-family:'Space Mono',monospace;
+  font-size:42px;font-weight:700;color:var(--black);
+  letter-spacing:2px;line-height:1;margin-bottom:6px;
+}
+.result-name{
+  font-size:16px;font-weight:500;color:var(--text-muted);margin-bottom:16px;
+}
+.roast-bubble{
+  background:var(--red-light);border-radius:var(--radius);
+  padding:12px 14px;font-size:13px;font-style:italic;
+  color:var(--red-dark);line-height:1.6;text-align:left;
+  border-left:3px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;
+}
 
-  /* Result screen */
-  .result-eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: var(--text-tertiary);
-    text-align: center;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-  }
-  .result-type-code {
-    font-size: 52px;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: 3px;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .result-type-name {
-    font-size: 16px;
-    color: var(--text-secondary);
-    text-align: center;
-    margin-bottom: 1.75rem;
-  }
-  .result-card {
-    background: var(--bg);
-    border: 0.5px solid var(--border-strong);
-    border-radius: var(--radius-lg);
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .roast {
-    font-size: 14px;
-    font-style: italic;
-    color: var(--text-secondary);
-    border-left: 2px solid var(--border-strong);
-    padding-left: 12px;
-    margin-bottom: 14px;
-    line-height: 1.6;
-  }
-  .result-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text);
-    margin-bottom: 14px;
-  }
-  .trait-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-  .trait {
-    font-size: 12px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    border: 0.5px solid var(--border);
-  }
-  .feature-rec {
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    padding: 10px 12px;
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--text);
-  }
-  .feature-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-tertiary);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 4px;
-  }
+.result-desc-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:20px;margin-bottom:12px;
+}
+.section-label{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  color:var(--text-hint);text-transform:uppercase;margin-bottom:10px;
+}
+.result-desc{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:14px}
+.trait-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0}
+.trait{
+  font-size:11px;padding:4px 10px;border-radius:20px;
+  background:var(--gray-100);color:var(--gray-600);
+  border:1px solid var(--border);
+}
 
-  /* Share card */
-  .share-card {
-    background: var(--bg-secondary);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.25rem;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  .share-label { font-size: 11px; color: var(--text-tertiary); margin-bottom: 6px; }
-  .share-code { font-size: 36px; font-weight: 700; letter-spacing: 2px; margin-bottom: 2px; }
-  .share-name { font-size: 13px; color: var(--text-secondary); margin-bottom: 1rem; }
+/* PRODUCTS */
+.products-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:20px;margin-bottom:12px;
+}
+.products-grid{display:flex;flex-wrap:wrap;gap:6px}
+.product-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:500;padding:6px 12px;
+  border-radius:20px;border:1px solid var(--red-mid);
+  background:var(--red-light);color:var(--red-dark);
+  cursor:default;
+}
+.product-tag .prod-icon{font-size:13px}
+.product-primary{
+  background:var(--red);color:var(--white);border-color:var(--red);
+}
+.product-note{
+  font-size:12px;color:var(--text-muted);margin-top:10px;line-height:1.55;
+}
 
-  /* Buttons */
-  .btn {
-    width: 100%;
-    padding: 12px 20px;
-    border-radius: var(--radius-md);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: inherit;
-    transition: opacity 0.15s, transform 0.1s;
-    margin-bottom: 8px;
-    border: 0.5px solid var(--border-strong);
-    background: transparent;
-    color: var(--text);
-  }
-  .btn:hover { background: var(--bg-secondary); }
-  .btn:active { transform: scale(0.99); }
-  .btn-primary {
-    background: #185FA5;
-    color: #ffffff;
-    border: none;
-    font-size: 15px;
-    padding: 14px 20px;
-  }
-  .btn-primary:hover { background: #0c447c; }
-  .btn-share {
-    background: var(--blue-bg);
-    color: var(--blue-text);
-    border: none;
-    font-weight: 600;
-  }
-  .btn-share:hover { opacity: 0.85; }
+/* ─── CTA BANNER ─── */
+.cta-banner{
+  border-radius:var(--radius-lg);
+  padding:20px;margin-bottom:12px;
+  position:relative;overflow:hidden;
+}
+.cta-banner::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    -55deg,
+    transparent,transparent 18px,
+    rgba(255,255,255,.04) 18px,rgba(255,255,255,.04) 20px
+  );
+  pointer-events:none;
+}
+.cta-offer-label{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:8px;opacity:.7;
+}
+.cta-offer-title{
+  font-size:20px;font-weight:700;line-height:1.25;
+  margin-bottom:6px;
+}
+.cta-offer-sub{
+  font-size:13px;line-height:1.55;margin-bottom:16px;opacity:.85;
+}
+.cta-offer-detail{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;
+}
+.cta-chip{
+  font-size:11px;font-weight:600;padding:4px 10px;
+  border-radius:20px;opacity:.9;
+}
+.cta-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px;border:none;border-radius:var(--radius);
+  font-size:15px;font-weight:700;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:opacity .15s,transform .1s;
+}
+.cta-btn:hover{opacity:.92}
+.cta-btn:active{transform:scale(.98)}
+.cta-btn svg{flex-shrink:0}
+.cta-expire{
+  font-size:11px;text-align:center;margin-top:10px;opacity:.55;
+}
 
-  .copy-toast {
-    display: none;
-    text-align: center;
-    font-size: 13px;
-    color: #0f6e56;
-    background: #e1f5ee;
-    border-radius: var(--radius-md);
-    padding: 8px;
-    margin-bottom: 8px;
-  }
-  .copy-toast.show { display: block; }
+/* Red theme (PANIC, LURK, CHILL) */
+.cta-red{background:var(--red);color:#fff}
+.cta-red .cta-chip{background:rgba(255,255,255,.18);color:#fff}
+.cta-red .cta-btn{background:#fff;color:var(--red)}
 
-  .footer {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 0.5px solid var(--border);
-    font-size: 12px;
-    color: var(--text-tertiary);
-    text-align: center;
-    line-height: 1.6;
-  }
-  .footer a { color: var(--blue-text); text-decoration: none; }
+/* Dark theme (YOLO, THINK) */
+.cta-dark{background:var(--black);color:#fff}
+.cta-dark .cta-chip{background:rgba(255,255,255,.12);color:#fff}
+.cta-dark .cta-btn{background:var(--red);color:#fff}
+
+/* Gold theme (HOLD) */
+.cta-gold{background:#1A1400;color:#fff;border:1px solid rgba(222,175,50,.3)}
+.cta-gold .cta-offer-title{color:#DEAF32}
+.cta-gold .cta-chip{background:rgba(222,175,50,.15);color:#DEAF32}
+.cta-gold .cta-btn{background:#DEAF32;color:#1A1400}
+
+/* Teal theme (FOMO) */
+.cta-teal{background:#04342C;color:#fff}
+.cta-teal .cta-chip{background:rgba(93,202,165,.18);color:#5DCAA5}
+.cta-teal .cta-btn{background:#1D9E75;color:#fff}
+
+/* ATM theme (deep blue) */
+.cta-blue{background:#042C53;color:#fff}
+.cta-blue .cta-chip{background:rgba(133,183,235,.18);color:#85B7EB}
+.cta-blue .cta-btn{background:#378ADD;color:#fff}
+
+/* SHARE */
+.share-card{
+  background:var(--black);border-radius:var(--radius-lg);
+  padding:20px;margin-bottom:12px;
+}
+.share-card-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+}
+.share-type-code{
+  font-family:'Space Mono',monospace;font-size:28px;
+  font-weight:700;color:var(--white);letter-spacing:2px;
+}
+.share-type-name{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.share-logo{
+  font-family:'Space Mono',monospace;font-size:12px;
+  color:rgba(255,255,255,.4);font-weight:700;
+  border:1px solid rgba(255,255,255,.15);
+  padding:4px 8px;border-radius:4px;
+}
+.share-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.share-btn{
+  padding:11px 10px;border-radius:var(--radius);
+  font-size:13px;font-weight:600;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  border:none;transition:opacity .15s,transform .1s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.share-btn:active{transform:scale(.97)}
+.share-btn.facebook{background:#1877F2;color:#fff}
+.share-btn.copy{background:rgba(255,255,255,.12);color:#fff}
+.share-btn.copy:hover{background:rgba(255,255,255,.2)}
+.share-btn.x{background:#fff;color:#000}
+
+.copy-toast{
+  display:none;text-align:center;font-size:12px;
+  color:#0f6e56;background:#e1f5ee;
+  border-radius:var(--radius);padding:8px;margin-bottom:8px;
+}
+.copy-toast.show{display:block}
+
+.btn-reset{
+  width:100%;padding:13px;
+  background:transparent;color:var(--text-muted);
+  border:1px solid var(--border-strong);border-radius:var(--radius);
+  font-size:14px;font-weight:500;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:background .15s;
+}
+.btn-reset:hover{background:var(--gray-100)}
+
+/* FOOTER */
+.footer{
+  text-align:center;font-size:11px;color:var(--text-hint);
+  margin-top:28px;padding-top:20px;border-top:1px solid var(--border);
+  line-height:1.7;
+}
+.footer a{color:var(--red);text-decoration:none}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.screen.active{animation:fadeUp .25s ease}
 </style>
 </head>
 <body>
+
+<header class="header">
+  <div class="header-logo">SSI</div>
+  <div class="header-tag">Investor Type Quiz</div>
+</header>
+
 <div id="app">
 
-  <div class="logo">
-    <span class="logo-badge">SSI</span>
-    <span class="logo-sep">×</span>
-    <span class="logo-sub">Investor Type Quiz</span>
-  </div>
-
-  <!-- START -->
-  <div id="screen-start" class="screen active">
+<!-- START -->
+<div id="screen-start" class="screen active">
+  <div class="start-wrap">
     <div class="start-eyebrow">SSI × Investor Type</div>
-    <h1 class="start-title">Bạn đầu tư<br>kiểu gì?</h1>
+    <h1 class="start-h1">Bạn đầu tư<br>kiểu <span>gì?</span></h1>
     <p class="start-sub">6 câu hỏi. Không có đáp án đúng sai.<br>Chỉ có kết quả đúng đến mức hơi khó chịu.</p>
-    <div class="type-grid">
-      <div class="type-chip"><strong>HOLD-ER</strong><small>Đá tảng</small></div>
-      <div class="type-chip"><strong>PANIC</strong><small>Trốn chạy</small></div>
-      <div class="type-chip"><strong>YOLO</strong><small>Bạo gan</small></div>
-      <div class="type-chip"><strong>LURK-R</strong><small>Rình mò</small></div>
-      <div class="type-chip"><strong>FOMO-D</strong><small>Bỏ lỡ</small></div>
-      <div class="type-chip"><strong>THINK-R</strong><small>Phân tích</small></div>
-      <div class="type-chip"><strong>ATM-R</strong><small>Mạnh tay</small></div>
-      <div class="type-chip"><strong>CHILL</strong><small>Tự động</small></div>
+    <div class="start-stats">
+      <div class="stat-box"><div class="stat-num">8</div><div class="stat-label">investor types</div></div>
+      <div class="stat-box"><div class="stat-num">6</div><div class="stat-label">câu hỏi</div></div>
+      <div class="stat-box"><div class="stat-num">2'</div><div class="stat-label">hoàn thành</div></div>
     </div>
-    <button class="btn btn-primary" onclick="startQuiz()">Bắt đầu làm quiz →</button>
-    <p style="text-align:center;font-size:12px;color:var(--text-tertiary);margin-top:8px">Mất khoảng 2 phút · Kết quả có thể share</p>
-  </div>
-
-  <!-- QUIZ -->
-  <div id="screen-quiz" class="screen">
-    <div class="q-meta">
-      <span class="q-counter" id="q-counter">Câu 1 / 6</span>
+    <div class="type-ticker">
+      <span class="type-chip">HOLD-ER<small>Đá tảng</small></span>
+      <span class="type-chip">PANIC<small>Trốn chạy</small></span>
+      <span class="type-chip">YOLO<small>Bạo gan</small></span>
+      <span class="type-chip">LURK-R<small>Rình mò</small></span>
+      <span class="type-chip">FOMO-D<small>Bỏ lỡ</small></span>
+      <span class="type-chip">THINK-R<small>Phân tích</small></span>
+      <span class="type-chip">ATM-R<small>Mạnh tay</small></span>
+      <span class="type-chip">CHILL<small>Tự động</small></span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
-    <div class="question-text" id="q-text"></div>
-    <div class="options" id="q-options"></div>
-  </div>
-
-  <!-- RESULT -->
-  <div id="screen-result" class="screen">
-    <div class="result-eyebrow">Kết quả của bạn</div>
-    <div class="result-type-code" id="res-type"></div>
-    <div class="result-type-name" id="res-name"></div>
-    <div class="result-card">
-      <div class="roast" id="res-roast"></div>
-      <div class="result-desc" id="res-desc"></div>
-      <div class="trait-row" id="res-traits"></div>
-      <div class="feature-rec">
-        <span class="feature-label">SSI gợi ý cho bạn</span>
-        <span id="res-feature"></span>
-      </div>
-    </div>
-    <div class="share-card">
-      <div class="share-label">Chia sẻ kết quả của bạn</div>
-      <div class="share-code" id="share-code"></div>
-      <div class="share-name" id="share-name"></div>
-      <button class="btn btn-share" onclick="shareResult()">Chia sẻ kết quả này</button>
-      <div class="copy-toast" id="copy-toast">Đã copy! Paste vào Stories, chat hay đâu bạn muốn.</div>
-    </div>
-    <button class="btn" onclick="resetQuiz()">Làm lại từ đầu</button>
-  </div>
-
-  <div class="footer">
-    <strong>SSI Securities Corporation</strong><br>
-    Quiz này mang tính giải trí và giáo dục. Không phải khuyến nghị đầu tư.<br>
-    <a href="https://www.ssi.com.vn" target="_blank">ssi.com.vn</a>
+    <button class="btn-start" onclick="startQuiz()">
+      Bắt đầu làm quiz
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="start-note">Kết quả có thể share · Không lưu dữ liệu cá nhân</div>
   </div>
 </div>
 
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-wrap">
+    <div class="quiz-meta">
+      <span class="q-num">Câu <span id="q-cur">1</span> / 6</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="screen-result" class="screen">
+  <div class="result-wrap">
+    <div class="result-hero">
+      <div class="result-illustration" id="res-illustration"></div>
+      <div class="result-code" id="res-code"></div>
+      <div class="result-name" id="res-name"></div>
+      <div class="roast-bubble" id="res-roast"></div>
+    </div>
+
+    <div class="result-desc-card">
+      <div class="section-label">Phân tích</div>
+      <div class="result-desc" id="res-desc"></div>
+      <div class="trait-row" id="res-traits"></div>
+    </div>
+
+    <div class="products-card">
+      <div class="section-label">Sản phẩm phù hợp với bạn</div>
+      <div class="products-grid" id="res-products"></div>
+      <div class="product-note" id="res-product-note"></div>
+    </div>
+
+    <div id="res-cta"></div>
+
+    <div class="share-card">
+      <div class="share-card-inner">
+        <div>
+          <div class="share-type-code" id="share-code"></div>
+          <div class="share-type-name" id="share-name"></div>
+        </div>
+        <div class="share-logo">SSI</div>
+      </div>
+      <div class="share-buttons">
+        <button class="share-btn facebook" onclick="shareFacebook()">Facebook</button>
+        <button class="share-btn x" onclick="shareX()">X / Twitter</button>
+      </div>
+      <div style="margin-top:8px">
+        <button class="share-btn copy" style="width:100%" onclick="copyResult()">Sao chép kết quả</button>
+      </div>
+    </div>
+    <div class="copy-toast" id="copy-toast">Đã copy! Paste vào Stories, chat hay đâu bạn muốn.</div>
+    <button class="btn-reset" onclick="resetQuiz()">Làm lại từ đầu</button>
+
+    <div class="footer">
+      <strong>SSI Securities Corporation</strong><br>
+      Quiz mang tính giải trí và gợi ý sản phẩm. Không phải khuyến nghị đầu tư chính thức.<br>
+      <a href="https://www.ssi.com.vn" target="_blank">ssi.com.vn</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
 <script>
+// ─── ILLUSTRATIONS (SVG inline per type) ───────────────────────────────────
+const illustrations = {
+  HOLD: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <rect x="32" y="72" width="56" height="10" rx="5" fill="#D0151C"/>
+    <rect x="40" y="52" width="8" height="20" rx="3" fill="#FFD6D7"/>
+    <rect x="56" y="42" width="8" height="30" rx="3" fill="#D0151C"/>
+    <rect x="72" y="58" width="8" height="14" rx="3" fill="#FFD6D7"/>
+    <path d="M36 50 L56 38 L76 44 L92 36" stroke="#D0151C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="92" cy="35" r="4" fill="#D0151C"/>
+    <text x="60" y="100" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">HOLD-ER</text>
+  </svg>`,
+
+  PANIC: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <circle cx="60" cy="52" r="20" fill="#FFD6D7"/>
+    <circle cx="52" cy="48" r="3.5" fill="#D0151C"/>
+    <circle cx="68" cy="48" r="3.5" fill="#D0151C"/>
+    <path d="M50 62 Q60 55 70 62" stroke="#D0151C" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M40 30 L44 38 M80 30 L76 38" stroke="#D0151C" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M30 50 L38 54 M90 50 L82 54" stroke="#D0151C" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M50 78 Q56 84 60 90 Q64 84 70 78" stroke="#D0151C" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <text x="60" y="108" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">PANIC</text>
+  </svg>`,
+
+  YOLO: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <path d="M30 80 Q45 30 60 35 Q75 40 90 20" stroke="#D0151C" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <circle cx="90" cy="20" r="6" fill="#D0151C"/>
+    <path d="M85 15 L96 14 L95 25" stroke="#D0151C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="45" cy="56" r="4" fill="#FFD6D7" stroke="#D0151C" stroke-width="1.5"/>
+    <circle cx="60" cy="47" r="4" fill="#FFD6D7" stroke="#D0151C" stroke-width="1.5"/>
+    <circle cx="75" cy="38" r="4" fill="#D0151C"/>
+    <path d="M30 88 L90 88" stroke="#D0151C" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="60" y="106" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">YOLO</text>
+  </svg>`,
+
+  LURK: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <circle cx="60" cy="50" r="22" fill="none" stroke="#FFD6D7" stroke-width="8"/>
+    <circle cx="60" cy="50" r="10" fill="none" stroke="#D0151C" stroke-width="3"/>
+    <circle cx="60" cy="50" r="3" fill="#D0151C"/>
+    <line x1="75" y1="65" x2="88" y2="78" stroke="#D0151C" stroke-width="4" stroke-linecap="round"/>
+    <rect x="85" y="73" width="14" height="6" rx="3" transform="rotate(45 85 73)" fill="#D0151C"/>
+    <path d="M40 82 Q60 78 80 82" stroke="#D0151C" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="3 2"/>
+    <text x="60" y="100" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">LURK-R</text>
+  </svg>`,
+
+  FOMO: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <rect x="28" y="42" width="28" height="32" rx="4" fill="#FFD6D7" stroke="#D0151C" stroke-width="1.5"/>
+    <rect x="64" y="48" width="28" height="26" rx="4" fill="#FFD6D7" stroke="#D0151C" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <path d="M36 58 L44 52 L44 64 Z" fill="#D0151C"/>
+    <text x="78" y="65" text-anchor="middle" font-size="16" fill="#D0151C">?</text>
+    <path d="M56 58 L64 58" stroke="#D0151C" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>
+    <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6Z" fill="#D0151C"/></marker></defs>
+    <path d="M36 82 Q60 88 84 82" stroke="#D0151C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <text x="60" y="100" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">FOMO-D</text>
+  </svg>`,
+
+  THINK: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <rect x="26" y="35" width="68" height="46" rx="6" fill="none" stroke="#D0151C" stroke-width="2"/>
+    <rect x="32" y="42" width="20" height="3" rx="1.5" fill="#FFD6D7"/>
+    <rect x="32" y="49" width="32" height="3" rx="1.5" fill="#D0151C"/>
+    <rect x="32" y="56" width="24" height="3" rx="1.5" fill="#FFD6D7"/>
+    <rect x="32" y="63" width="28" height="3" rx="1.5" fill="#D0151C" opacity=".5"/>
+    <rect x="68" y="42" width="20" height="22" rx="3" fill="#D0151C" opacity=".12"/>
+    <path d="M72 48 L84 48 M72 53 L80 53 M72 58 L84 58" stroke="#D0151C" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="60" y1="81" x2="60" y2="88" stroke="#D0151C" stroke-width="2"/>
+    <rect x="44" y="87" width="32" height="6" rx="3" fill="#D0151C"/>
+    <text x="60" y="105" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">THINK-R</text>
+  </svg>`,
+
+  ATM: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <rect x="34" y="32" width="52" height="56" rx="6" fill="none" stroke="#D0151C" stroke-width="2"/>
+    <rect x="40" y="42" width="40" height="10" rx="3" fill="#FFD6D7"/>
+    <path d="M44 47 L72 47" stroke="#D0151C" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="40" y="58" width="16" height="12" rx="2" fill="#D0151C" opacity=".2" stroke="#D0151C" stroke-width="1"/>
+    <rect x="62" y="58" width="18" height="5" rx="1.5" fill="#D0151C"/>
+    <rect x="62" y="65" width="12" height="5" rx="1.5" fill="#FFD6D7"/>
+    <path d="M48 78 L72 78" stroke="#D0151C" stroke-width="2" stroke-linecap="round"/>
+    <path d="M60 82 L60 92 L50 88 M60 92 L70 88" stroke="#D0151C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="60" y="108" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">ATM-R</text>
+  </svg>`,
+
+  CHILL: `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="54" fill="#FFF0F0"/>
+    <circle cx="60" cy="52" r="20" fill="#FFD6D7"/>
+    <circle cx="53" cy="48" r="3" fill="#D0151C"/>
+    <circle cx="67" cy="48" r="3" fill="#D0151C"/>
+    <path d="M50 58 Q60 66 70 58" stroke="#D0151C" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M30 78 Q45 68 60 72 Q75 68 90 78" stroke="#D0151C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M22 60 Q26 52 30 60 Q34 68 38 60" stroke="#FFD6D7" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M82 60 Q86 52 90 60 Q94 68 98 60" stroke="#FFD6D7" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M44 86 Q52 90 60 88 Q68 90 76 86" stroke="#D0151C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <text x="60" y="105" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#D0151C">CHILL</text>
+  </svg>`
+};
+
+// ─── QUESTIONS ────────────────────────────────────────────────────────────
+// Scoring: each answer adds points to one or more type buckets.
+// Final result = type with highest total score across all 6 questions.
 const questions = [
   {
     text: "Thị trường giảm 8% trong một tuần. Bạn làm gì?",
@@ -408,10 +628,10 @@ const questions = [
     ]
   },
   {
-    text: "Danh mục của bạn trông như thế nào?",
+    text: "Danh mục đầu tư của bạn trông như thế nào?",
     options: [
       { text: "Toàn cổ phiếu một công ty vì tin tưởng tuyệt đối", score: { YOLO: 2, HOLD: 1 } },
-      { text: "Đa dạng, có ETF, có cổ phiếu, có chứng chỉ quỹ", score: { THINK: 2, CHILL: 1 } },
+      { text: "Đa dạng, có ETF, cổ phiếu, chứng chỉ quỹ", score: { THINK: 2, CHILL: 1 } },
       { text: "Chưa có danh mục, đang 'chuẩn bị'", score: { LURK: 2, FOMO: 1 } },
       { text: "Từng có nhưng bán hết rồi vì lo", score: { PANIC: 3 } }
     ]
@@ -429,80 +649,142 @@ const questions = [
     text: "Mô tả quan hệ của bạn với ứng dụng chứng khoán?",
     options: [
       { text: "Mở 10 lần/ngày, hiếm khi đặt lệnh", score: { LURK: 3 } },
-      { text: "Set tự động, ít khi mở", score: { CHILL: 3 } },
-      { text: "Mở khi thị trường xấu, đóng khi sợ", score: { PANIC: 2 } },
+      { text: "Set tự động, ít khi cần mở", score: { CHILL: 3 } },
+      { text: "Mở khi thị trường xấu, đóng ngay khi sợ", score: { PANIC: 2 } },
       { text: "Dùng thường xuyên, phân tích nghiêm túc", score: { THINK: 2, HOLD: 1 } }
     ]
   }
 ];
 
+// ─── TYPE DEFINITIONS ─────────────────────────────────────────────────────
 const types = {
   HOLD: {
     code: "HOLD-ER", name: "Đá tảng",
     roast: "Bạn có thể ngồi yên nhìn danh mục giảm 20% mà vẫn ngủ ngon. Không ai biết đó là bản lĩnh hay bạn... quên mất mình đang có tài khoản.",
-    desc: "Bạn tin vào dài hạn, không bị xáo trộn bởi noise ngắn hạn. Sự kiên nhẫn là superpower — nhưng đôi khi cần chủ động review lại danh mục thay vì chỉ giữ vì lười.",
-    traits: ["Kiên nhẫn", "Không bị FOMO", "Tư duy dài hạn", "Cần review định kỳ"],
-    feature: "eSIP là tính năng dành cho bạn — tích sản chứng chỉ quỹ tự động, không cần nhớ, không cần lo. Set một lần, HOLD mãi mãi."
+    desc: "Bạn tin vào dài hạn, không bị xáo trộn bởi noise ngắn hạn. Sự kiên nhẫn là superpower thật sự — nhưng đôi khi cần chủ động review lại danh mục thay vì chỉ giữ vì lười.",
+    traits: ["Kiên nhẫn cao", "Không bị FOMO", "Tư duy dài hạn", "Cần review định kỳ"],
+    products: [
+      { name: "Cổ phiếu", icon: "📈", primary: true },
+      { name: "Chứng chỉ quỹ", icon: "🏦", primary: true },
+      { name: "iFollow", icon: "👥", primary: false },
+      { name: "eSIP", icon: "⚙️", primary: false },
+      { name: "Trái phiếu", icon: "📋", primary: false }
+    ],
+    productNote: "Bạn phù hợp nhất với đầu tư dài hạn vào cổ phiếu cơ bản và chứng chỉ quỹ. iFollow giúp bạn theo dõi chiến lược từ chuyên gia mà không cần can thiệp nhiều."
   },
   PANIC: {
     code: "PANIC", name: "Trốn chạy",
     roast: "Thị trường hắt hơi một cái là bạn đã sẵn sàng thanh lý toàn bộ. Portfolio của bạn có lẽ đã mua đỉnh và bán đáy ít nhất một lần rồi.",
     desc: "Bạn nhạy cảm với biến động, điều đó không sai — nhưng đang bị cảm xúc chi phối nhiều hơn dữ liệu. Cần một hệ thống tự động để tay không can thiệp vào quyết định đầu tư.",
     traits: ["Nhạy cảm thị trường", "Thiếu hệ thống", "Dễ buy high sell low", "Cần discipline"],
-    feature: "eSIP là thứ bạn cần nhất — tự động hoá quyết định để cảm xúc không còn là kẻ thù."
+    products: [
+      { name: "eSIP", icon: "⚙️", primary: true },
+      { name: "S-CASH", icon: "💰", primary: true },
+      { name: "Chứng chỉ quỹ", icon: "🏦", primary: false },
+      { name: "iFollow", icon: "👥", primary: false }
+    ],
+    productNote: "Bạn cần các sản phẩm tự động hoá quyết định: eSIP tích sản định kỳ không cần can thiệp, S-CASH sinh lời tự động từ tiền nhàn rỗi. Tránh xa phái sinh và margin ở giai đoạn này."
   },
   YOLO: {
     code: "YOLO", name: "Bạo gan",
     roast: "Bạn đã all-in ít nhất một lần vào thứ gì đó vì 'cảm giác'. Nếu nó thắng, bạn gọi đó là thiên tài. Nếu thua, bạn nói thị trường bất công.",
     desc: "Bạn có courage — thứ nhiều người thiếu. Vấn đề là courage không có risk management thì là... gambling. Một chút structure sẽ biến năng lượng đó thành lợi thế thật sự.",
     traits: ["Dũng cảm", "Thiếu risk management", "High conviction", "Học từ thực chiến"],
-    feature: "Summer Portfolio hợp với bạn — sóng có chọn lọc, danh mục có cơ sở phân tích, không phải all-in mù."
+    products: [
+      { name: "Cổ phiếu", icon: "📈", primary: true },
+      { name: "Margin", icon: "⚡", primary: true },
+      { name: "Chứng quyền", icon: "🎯", primary: false },
+      { name: "Phái sinh", icon: "📊", primary: false },
+      { name: "iFollow", icon: "👥", primary: false }
+    ],
+    productNote: "Bạn có khẩu vị rủi ro cao — margin và chứng quyền phù hợp nhưng cần hiểu rõ cơ chế trước khi dùng. iFollow giúp bạn học cách ra quyết định có cơ sở hơn từ chuyên gia."
   },
   LURK: {
     code: "LURK-R", name: "Rình mò",
     roast: "Bạn đã theo dõi thị trường 6 tháng, đọc hàng trăm bài phân tích, biết hết mọi cổ phiếu tiềm năng — nhưng vẫn chưa đặt lệnh đầu tiên. 'Chờ thêm tí nữa...'",
     desc: "Bạn thông minh và cẩn thận, nhưng đang paralysis by analysis. Mọi thời điểm đều có rủi ro — điều đó không bao giờ thay đổi. Bắt đầu nhỏ quan trọng hơn bắt đầu hoàn hảo.",
     traits: ["Nghiên cứu kỹ", "Sợ sai", "Chưa hành động", "Tiềm năng cao nếu bắt đầu"],
-    feature: "eSIP — bắt đầu nhỏ, tự động, không cần thời điểm hoàn hảo. Bẫy 'chờ thêm' kết thúc hôm nay."
+    products: [
+      { name: "eSIP", icon: "⚙️", primary: true },
+      { name: "Chứng chỉ quỹ", icon: "🏦", primary: true },
+      { name: "S-CASH", icon: "💰", primary: false },
+      { name: "iFollow", icon: "👥", primary: false }
+    ],
+    productNote: "eSIP và chứng chỉ quỹ là điểm khởi đầu lý tưởng: rủi ro phân tán, không cần timing hoàn hảo. S-CASH cho tiền nhàn rỗi sinh lời trong khi bạn tiếp tục nghiên cứu."
   },
   FOMO: {
     code: "FOMO-D", name: "Bỏ lỡ",
     roast: "Bạn có tài năng đặc biệt: luôn vào sau khi cổ phiếu đã tăng 30% và ra ngay trước khi nó tăng thêm 50%. Timing của bạn... rất đặc trưng.",
     desc: "FOMO là cảm xúc tự nhiên, nhưng đang là kẻ thù số một của lợi nhuận. Bạn cần hệ thống đầu tư không phụ thuộc vào cảm giác 'bây giờ hoặc không bao giờ'.",
     traits: ["Nhạy bén với cơ hội", "Hay vào trễ", "Bị cảm xúc dẫn", "Cần kỷ luật thời điểm"],
-    feature: "iEarn — giới thiệu bạn bè cùng đầu tư, cùng thắng. Biến FOMO thành cộng đồng."
+    products: [
+      { name: "iFollow", icon: "👥", primary: true },
+      { name: "eSIP", icon: "⚙️", primary: true },
+      { name: "iEarn", icon: "🤝", primary: false },
+      { name: "Chứng chỉ quỹ", icon: "🏦", primary: false }
+    ],
+    productNote: "iFollow cho phép bạn đặt lệnh theo chuyên gia — giải quyết nỗi lo 'timing' mà không cần tự phán đoán. iEarn giúp bạn biến cộng đồng thành lợi thế thay vì nguồn FOMO."
   },
   THINK: {
     code: "THINK-R", name: "Phân tích",
-    roast: "Bạn có spreadsheet theo dõi portfolio với 12 cột. Bạn đọc báo cáo tài chính như người khác đọc tin nhắn. Bạn hơi nerd — nhưng portfolio của bạn cảm ơn bạn vì điều đó.",
+    roast: "Bạn có spreadsheet theo dõi portfolio với 12 cột. Bạn đọc báo cáo tài chính như người khác đọc tin nhắn. Bạn hơi nerd — nhưng portfolio của bạn cảm ơn bạn.",
     desc: "Bạn tiếp cận đầu tư nghiêm túc và có nền tảng vững. Điểm mạnh là analysis, điểm cần phát triển là đừng để overthink làm chậm quyết định đúng đắn.",
     traits: ["Dữ liệu làm chủ", "Kỷ luật cao", "Đôi khi overthink", "Nền tảng vững"],
-    feature: "Summer Portfolio — danh mục có nghiên cứu, có cơ sở vĩ mô. Bạn sẽ hiểu tại sao từng cổ phiếu được chọn."
+    products: [
+      { name: "Cổ phiếu", icon: "📈", primary: true },
+      { name: "Phái sinh", icon: "📊", primary: true },
+      { name: "Trái phiếu", icon: "📋", primary: false },
+      { name: "Margin", icon: "⚡", primary: false },
+      { name: "Chứng quyền", icon: "🎯", primary: false }
+    ],
+    productNote: "Nền tảng phân tích của bạn phù hợp với các sản phẩm phức tạp hơn như phái sinh và margin. Hãy tận dụng SSI Research để có dữ liệu chuyên sâu cho quyết định của bạn."
   },
   ATM: {
     code: "ATM-R", name: "Mạnh tay",
-    roast: "Mỗi khi thị trường tốt, bạn rút ra xài. Mỗi khi cần tiền, bạn bán cổ phiếu. Portfolio của bạn đang kiêm chức năng ATM — không ai thiết kế nó như vậy.",
-    desc: "Bạn có thu nhập và không ngại đầu tư — đó là điểm mạnh thật sự. Nhưng đang thiếu sự tách biệt giữa tiền đầu tư và tiền tiêu dùng. Một chút automation sẽ thay đổi hoàn toàn kết quả.",
+    roast: "Mỗi khi thị trường tốt, bạn rút ra xài. Mỗi khi cần tiền, bạn bán cổ phiếu. Portfolio của bạn đang kiêm chức năng ATM — không ai thiết kế nó như vậy đâu.",
+    desc: "Bạn có thu nhập và không ngại xuống tiền — đó là điểm mạnh thật sự. Nhưng đang thiếu sự tách biệt giữa tiền đầu tư và tiền tiêu dùng. Automation sẽ thay đổi hoàn toàn kết quả.",
     traits: ["Sẵn sàng xuống tiền", "Thiếu tách biệt tài khoản", "Tư duy ngắn hạn", "Tiềm năng cao"],
-    feature: "iEarn + eSIP — xây thói quen tích sản đều đặn, và giới thiệu bạn bè cùng có kỷ luật."
+    products: [
+      { name: "S-CASH", icon: "💰", primary: true },
+      { name: "eSIP", icon: "⚙️", primary: true },
+      { name: "iEarn", icon: "🤝", primary: false },
+      { name: "Chứng chỉ quỹ", icon: "🏦", primary: false }
+    ],
+    productNote: "S-CASH cho phép tiền nhàn rỗi sinh lời mà vẫn rút được khi cần — phù hợp với cách bạn dùng tiền. eSIP giúp tách riêng một khoản đầu tư tự động ra khỏi tiền tiêu dùng."
   },
   CHILL: {
     code: "CHILL", name: "Tự động",
     roast: "Bạn set auto-invest từ hồi tháng 3 rồi quên mất. Đến tháng 12 mở app mới thấy danh mục tăng. Bạn không phải thiên tài — bạn chỉ lười theo cách đúng nhất.",
-    desc: "Automation mindset là một trong những approach đầu tư thông minh nhất về mặt tâm lý. Bạn loại bỏ bias cảm xúc và để compound interest làm việc. Chỉ cần đảm bảo đang đầu tư vào đúng chỗ.",
+    desc: "Automation mindset là một trong những approach đầu tư thông minh nhất về mặt tâm lý. Bạn loại bỏ bias cảm xúc và để compound interest làm việc. Chỉ cần đảm bảo đang đầu tư đúng chỗ.",
     traits: ["Automation first", "Không bị noise", "Compound mindset", "Cần review định kỳ"],
-    feature: "eSIP là công cụ sinh ra dành cho bạn — tích sản chứng chỉ quỹ tự động, đúng cách bạn sống."
+    products: [
+      { name: "eSIP", icon: "⚙️", primary: true },
+      { name: "S-CASH", icon: "💰", primary: true },
+      { name: "Chứng chỉ quỹ", icon: "🏦", primary: false },
+      { name: "iFollow", icon: "👥", primary: false }
+    ],
+    productNote: "eSIP và S-CASH là bộ đôi hoàn hảo cho phong cách của bạn: tự động hoàn toàn, không cần quyết định hàng ngày. Chứng chỉ quỹ đa dạng hoá danh mục mà vẫn giữ được sự đơn giản."
   }
 };
 
+// ─── STATE ────────────────────────────────────────────────────────────────
 let scores = {};
 let current = 0;
 let resultType = null;
+const QUIZ_URL = window.location.href;
 
 function resetScores() {
-  scores = { HOLD: 0, PANIC: 0, YOLO: 0, LURK: 0, FOMO: 0, THINK: 0, ATM: 0, CHILL: 0 };
+  scores = { HOLD:0, PANIC:0, YOLO:0, LURK:0, FOMO:0, THINK:0, ATM:0, CHILL:0 };
 }
 
+// ─── SCREENS ──────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── QUIZ FLOW ────────────────────────────────────────────────────────────
 function startQuiz() {
   resetScores();
   current = 0;
@@ -510,75 +792,216 @@ function startQuiz() {
   renderQuestion();
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
 function renderQuestion() {
   const q = questions[current];
-  document.getElementById('q-counter').textContent = 'Câu ' + (current + 1) + ' / ' + questions.length;
+  document.getElementById('q-cur').textContent = current + 1;
   document.getElementById('progress').style.width = (current / questions.length * 100) + '%';
   document.getElementById('q-text').textContent = q.text;
-  const opts = document.getElementById('q-options');
-  opts.innerHTML = '';
+  const container = document.getElementById('q-options');
+  container.innerHTML = '';
   const shuffled = [...q.options].sort(() => Math.random() - 0.5);
   shuffled.forEach(o => {
     const btn = document.createElement('button');
     btn.className = 'opt-btn';
     btn.textContent = o.text;
-    btn.onclick = () => selectOption(btn, o.score, opts);
-    opts.appendChild(btn);
+    btn.onclick = () => pickOption(btn, o.score, container);
+    container.appendChild(btn);
   });
 }
 
-function selectOption(btn, score, container) {
-  container.querySelectorAll('.opt-btn').forEach(b => { b.classList.remove('selected'); b.disabled = true; });
+function pickOption(btn, score, container) {
+  container.querySelectorAll('.opt-btn').forEach(b => { b.disabled = true; });
   btn.classList.add('selected');
   Object.entries(score).forEach(([k, v]) => { if (scores[k] !== undefined) scores[k] += v; });
   setTimeout(() => {
     current++;
     if (current < questions.length) { renderQuestion(); }
     else { showResult(); }
-  }, 400);
+  }, 380);
 }
 
+// ─── CTA OFFERS (personalized per type) ──────────────────────────────────
+const offers = {
+  LURK: {
+    theme: 'cta-red',
+    label: 'Ưu đãi dành riêng cho LURK-R',
+    title: 'Miễn phí giao dịch\n3 tháng đầu',
+    sub: 'Bẫy "chờ thêm tí nữa" kết thúc hôm nay. Mở tài khoản SSI và bật eSIP ngay — không cần thời điểm hoàn hảo, không cần vốn lớn.',
+    chips: ['Miễn phí GD tháng 1 · 2 · 3', 'Bật eSIP ngay sau đăng ký', 'Bắt đầu từ 50K/ngày'],
+    cta: 'Mở tài khoản — miễn phí 3 tháng',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  PANIC: {
+    theme: 'cta-red',
+    label: 'Ưu đãi dành riêng cho PANIC',
+    title: 'Miễn phí giao dịch\n3 tháng đầu',
+    sub: 'Khi eSIP lo hộ quyết định, cảm xúc không còn là kẻ thù. Tự động tích sản — không cần nhớ, không cần lo, không cần bán hoảng.',
+    chips: ['Miễn phí GD tháng 1 · 2 · 3', 'eSIP tự động không cần thao tác', 'Hệ thống lo — bạn chill'],
+    cta: 'Mở tài khoản — bật eSIP ngay',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  CHILL: {
+    theme: 'cta-red',
+    label: 'Ưu đãi dành riêng cho CHILL',
+    title: 'Miễn phí giao dịch\n3 tháng đầu',
+    sub: 'Set eSIP một lần rồi thôi. Tháng 12 mở app mới xem — đó là cách bạn đầu tư. SSI có sẵn hệ thống cho kiểu người như bạn.',
+    chips: ['Miễn phí GD tháng 1 · 2 · 3', 'eSIP + S-CASH tự động hoàn toàn', 'Đăng ký mất 3 phút'],
+    cta: 'Mở tài khoản — set & forget',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  YOLO: {
+    theme: 'cta-dark',
+    label: 'Ưu đãi dành riêng cho YOLO',
+    title: 'Margin T+7\nlãi suất 0% trong 7 ngày',
+    sub: 'Courage của bạn cần đúng công cụ. Margin T+7 cho phép tận dụng cơ hội ngay khi thị trường mở ra — lãi 0% trong 7 ngày đầu sử dụng.',
+    chips: ['Margin T+7 lãi 0%', 'Trong 7 ngày kể từ khi kích hoạt', 'Áp dụng cho tài khoản mới'],
+    cta: 'Mở tài khoản — nhận margin ưu đãi',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  THINK: {
+    theme: 'cta-dark',
+    label: 'Ưu đãi dành riêng cho THINK-R',
+    title: 'Margin T+7\nlãi suất 0% trong 7 ngày',
+    sub: 'Bạn đã có dữ liệu, đã có phân tích. Margin T+7 là công cụ để thực thi quyết định đúng thời điểm — không bị giới hạn bởi vốn trong tay.',
+    chips: ['Margin T+7 lãi 0%', 'Trong 7 ngày kể từ khi kích hoạt', 'Truy cập SSI Research đi kèm'],
+    cta: 'Mở tài khoản — kích hoạt margin',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  FOMO: {
+    theme: 'cta-teal',
+    label: 'Ưu đãi dành riêng cho FOMO-D',
+    title: 'Phím danh mục\nlướt sóng từ iResearch',
+    sub: 'Không còn cảm giác vào sau khi tàu đã rời ga. iResearch phân tích và đề xuất danh mục lướt sóng theo từng chu kỳ — bạn chỉ cần nhấn lệnh.',
+    chips: ['iResearch Summer Portfolio', 'Cập nhật mỗi tuần', 'Đặt lệnh theo chuyên gia SSI'],
+    cta: 'Mở tài khoản — nhận phím ngay',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  ATM: {
+    theme: 'cta-blue',
+    label: 'Ưu đãi dành riêng cho ATM-R',
+    title: '+0,5% lãi S-CASH\nkỳ hạn trong 3 tháng',
+    sub: 'Tiền nhàn rỗi của bạn xứng đáng được sinh lời thay vì nằm trong ví. S-CASH kỳ hạn cộng thêm 0,5% lãi suất — rút được khi cần, không lo bị kẹt.',
+    chips: ['+0,5% lãi suất cộng thêm', 'Kỳ hạn 1 · 3 · 6 tháng', 'Rút linh hoạt khi đáo hạn'],
+    cta: 'Mở tài khoản — nhận lãi ngay',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  },
+  HOLD: {
+    theme: 'cta-gold',
+    label: 'Ưu đãi dành riêng cho HOLD-ER',
+    title: 'Tặng 100.000đ\nchứng chỉ quỹ SSI-SCA',
+    sub: 'Người giữ vững lập trường xứng đáng có điểm khởi đầu tốt hơn. 100.000đ chứng chỉ quỹ SSI-SCA được tặng thẳng vào danh mục khi mở tài khoản.',
+    chips: ['Tặng ngay 100.000đ SSI-SCA', 'Không cần nạp thêm', 'Đầu tư dài hạn từ ngày đầu'],
+    cta: 'Mở tài khoản — nhận quà ngay',
+    expire: 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026',
+    url: 'https://www.ssi.com.vn/mo-tai-khoan'
+  }
+};
+
+function renderCTA(typeKey) {
+  const o = offers[typeKey];
+  if (!o) return;
+  const titleLines = o.title.split('\n');
+  const chipsHTML = o.chips.map(c => `<span class="cta-chip">${c}</span>`).join('');
+  const arrowSVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  document.getElementById('res-cta').innerHTML = `
+    <div class="cta-banner ${o.theme}">
+      <div class="cta-offer-label">${o.label}</div>
+      <div class="cta-offer-title">${titleLines[0]}<br>${titleLines[1] || ''}</div>
+      <div class="cta-offer-sub">${o.sub}</div>
+      <div class="cta-offer-detail">${chipsHTML}</div>
+      <button class="cta-btn" onclick="window.open('${o.url}','_blank')">${o.cta} ${arrowSVG}</button>
+      <div class="cta-expire">${o.expire}</div>
+    </div>
+  `;
+}
+
+// ─── RESULT ───────────────────────────────────────────────────────────────
 function showResult() {
-  const top = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
-  const t = types[top];
+  // Find top-scoring type
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const topKey = sorted[0][0];
+  const t = types[topKey];
   resultType = t;
-  document.getElementById('res-type').textContent = t.code;
+
+  document.getElementById('res-illustration').innerHTML = illustrations[topKey];
+  document.getElementById('res-code').textContent = t.code;
   document.getElementById('res-name').textContent = t.name;
   document.getElementById('res-roast').textContent = t.roast;
   document.getElementById('res-desc').textContent = t.desc;
-  const tr = document.getElementById('res-traits');
-  tr.innerHTML = t.traits.map(x => '<span class="trait">' + x + '</span>').join('');
-  document.getElementById('res-feature').textContent = t.feature;
+
+  // Traits
+  document.getElementById('res-traits').innerHTML =
+    t.traits.map(tr => `<span class="trait">${tr}</span>`).join('');
+
+  // Products
+  document.getElementById('res-products').innerHTML =
+    t.products.map(p =>
+      `<span class="product-tag${p.primary ? ' product-primary' : ''}">
+        <span class="prod-icon">${p.icon}</span>${p.name}
+       </span>`
+    ).join('');
+  document.getElementById('res-product-note').textContent = t.productNote;
+
+  // Share card
   document.getElementById('share-code').textContent = t.code;
   document.getElementById('share-name').textContent = t.name + ' · SSI Investor Type';
+
+  // CTA banner personalized
+  renderCTA(topKey);
+
   document.getElementById('progress').style.width = '100%';
   document.getElementById('copy-toast').classList.remove('show');
   showScreen('screen-result');
 }
 
-function shareResult() {
-  if (!resultType) return;
-  const text = 'Tôi vừa làm quiz đầu tư của SSI và ra kết quả: ' + resultType.code + ' — ' + resultType.name + '. ' + resultType.roast.substring(0, 80) + '...\n\nBạn thuộc kiểu nào? 👉 ssi.com.vn';
-  if (navigator.share) {
-    navigator.share({ title: 'SSI Investor Type: ' + resultType.code, text: text });
-  } else if (navigator.clipboard) {
+// ─── SHARING ──────────────────────────────────────────────────────────────
+function getShareText() {
+  return `Tôi vừa làm quiz đầu tư của SSI và ra kết quả: ${resultType.code} — ${resultType.name} 🎯\n\n"${resultType.roast.substring(0, 80)}..."\n\nBạn thuộc kiểu đầu tư nào? → ${QUIZ_URL}`;
+}
+
+function shareFacebook() {
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(QUIZ_URL)}&quote=${encodeURIComponent(getShareText())}`;
+  window.open(url, '_blank', 'width=600,height=400');
+}
+
+function shareX() {
+  const text = `Tôi là kiểu đầu tư ${resultType.code} — ${resultType.name} theo quiz của @SSI_Securities. Bạn thì sao? 👉`;
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(QUIZ_URL)}`;
+  window.open(url, '_blank', 'width=600,height=400');
+}
+
+function copyResult() {
+  const text = getShareText();
+  if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(() => {
       const toast = document.getElementById('copy-toast');
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3000);
     });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const toast = document.getElementById('copy-toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
   }
 }
 
 function resetQuiz() {
   resetScores();
   current = 0;
+  resultType = null;
   showScreen('screen-start');
 }
 </script>
