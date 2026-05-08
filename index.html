@@ -100,6 +100,23 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--gray-50);color:var
 .product-tag .prod-icon{font-size:13px}
 .product-note{font-size:12px;margin-top:10px;line-height:1.55;opacity:.75;}
 
+/* ─── DUAL OFFER SELECTOR ─── */
+.cta-dual-wrap{margin-bottom:12px;}
+.dual-offer-heading{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.dual-offer-grid{display:flex;flex-direction:column;gap:10px;}
+.dual-offer-card{border:2px solid rgba(208,21,28,.25);border-radius:var(--radius-lg);padding:16px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s;position:relative;background:rgba(208,21,28,.08);color:var(--text);}
+.dual-offer-card:hover{border-color:rgba(208,21,28,.5);background:rgba(208,21,28,.13);}
+.dual-offer-card.selected{border-color:var(--red);background:var(--red);color:#fff;}
+.dual-offer-card.selected .dual-offer-sub{color:rgba(255,255,255,.85);}
+.dual-offer-card.selected .cta-chip{background:rgba(255,255,255,.2);color:#fff;}
+.dual-offer-card:not(.selected) .dual-offer-sub{color:var(--text-muted);}
+.dual-offer-card:not(.selected) .cta-chip{background:rgba(208,21,28,.12);color:var(--red);}
+.dual-offer-check{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--red);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;border:1.5px solid var(--red);}
+.dual-offer-title{font-size:17px;font-weight:700;line-height:1.25;margin-bottom:6px;padding-right:32px;}
+.dual-offer-sub{font-size:12px;line-height:1.55;margin-bottom:10px;transition:color .15s;}
+.dual-offer-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.dual-cta-btn{transition:opacity .15s,transform .1s;background:#fff !important;color:var(--red) !important;font-size:14px;}
+
 /* ─── SHARE SECTION — prominent ─── */
 .share-section{margin-bottom:12px;}
 .share-headline{font-family:'Be Vietnam Pro',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-align:center;margin-bottom:12px;text-transform:uppercase;}
@@ -618,64 +635,127 @@ function showResult() {
 
 // ─── CTA BANNER ───────────────────────────────────────────────────────────
 
-// Nhóm 2: STALKER, THINKER, HOLDER — random 1 trong 2
+const OPEN_ACCOUNT_BASE = 'https://iboard.ssi.com.vn/open-account/';
+
+// Offers cho từng nhóm — mỗi offer có url riêng để gắn UTM tracking
 const offerGroup2 = [
   {
-    theme: 'cta-gold',
     title: 'Tặng 100.000đ\nchứng chỉ quỹ SSI-SCA',
     sub: 'Khởi đầu vững chắc với 100.000đ chứng chỉ quỹ SSI-SCA tặng thẳng vào danh mục — không cần nạp thêm, không cần chờ thời điểm hoàn hảo.',
     chips: ['Tặng ngay 100.000đ SSI-SCA', 'Không cần nạp thêm', 'Đầu tư ngay từ ngày đầu'],
+    url: 'https://iboard.ssi.com.vn/open-account/?utm_source=quiz&utm_medium=offer&utm_campaign=ccq_sca',
   },
   {
-    theme: 'cta-gold',
     title: 'Tặng danh mục\n3 cổ phiếu giá trị tới 100.000đ',
     sub: 'SSI chọn sẵn 3 cổ phiếu giá trị phù hợp với phong cách đầu tư của bạn — tặng thẳng vào danh mục khi mở tài khoản.',
     chips: ['Danh mục 3 cổ phiếu giá trị', 'Chọn bởi chuyên gia SSI Research', 'Tặng ngay khi mở TK'],
+    url: 'https://iboard.ssi.com.vn/open-account/?utm_source=quiz&utm_medium=offer&utm_campaign=portfolio_3cp',
   }
 ];
 
-// Nhóm 3: YOLO, FOMO — random 1 trong 2
-const offerGroup3 = [
+const offerYOLO = [
   {
-    theme: 'cta-dark',
-    title: 'Tặng danh mục\n3 cổ phiếu tới 100.000đ',
-    sub: 'Đừng "bỏ hết trứng vào một giỏ". SSI tặng bạn danh mục 3 cổ phiếu giá trị, tăng trưởng bền vững để bạn san sẻ bớt rủi ro.',
-    chips: ['Danh mục 3 cổ phiếu giá trị', 'Chọn bởi chuyên gia SSI Research', 'Tặng ngay khi mở TK'],
+    title: 'Tặng danh mục\ncổ phiếu tới 100.000đ',
+    sub: 'Đừng "bỏ hết trứng vào một giỏ". SSI tặng bạn danh mục cổ phiếu giá trị, tăng trưởng bền vững để bạn san sẻ bớt rủi ro.',
+    chips: ['Danh mục cổ phiếu giá trị', 'Chọn bởi chuyên gia SSI Research', 'Tặng ngay khi mở TK'],
+    url: 'https://iboard.ssi.com.vn/open-account/?utm_source=quiz&utm_medium=offer&utm_campaign=yolo_portfolio',
   },
   {
-    theme: 'cta-gold',
     title: 'Tặng 100.000đ\nchứng chỉ quỹ SSI-SCA',
     sub: 'Khởi đầu đúng hướng với 100.000đ chứng chỉ quỹ SSI-SCA tặng thẳng vào danh mục — không cần nạp thêm, bắt đầu tích lũy ngay hôm nay.',
     chips: ['Tặng ngay 100.000đ SSI-SCA', 'Không cần nạp thêm', 'Bắt đầu tích lũy ngay'],
+    url: 'https://iboard.ssi.com.vn/open-account/?utm_source=quiz&utm_medium=offer&utm_campaign=yolo_ccq',
+  }
+];
+
+const offerFOMO = [
+  {
+    title: 'Tặng danh mục\n3 cổ phiếu tới 100.000đ',
+    sub: 'Không còn cảm giác vào sau khi tàu đã rời ga. SSI tặng danh mục 3 cổ phiếu giá trị để bắt đầu đúng hướng.',
+    chips: ['Danh mục 3 cổ phiếu giá trị', 'Chọn bởi chuyên gia SSI Research', 'Tặng ngay khi mở TK'],
+    url: 'https://iboard.ssi.com.vn/open-account/?utm_source=quiz&utm_medium=offer&utm_campaign=fomo_portfolio',
+  },
+  {
+    title: 'Tặng 100.000đ\nchứng chỉ quỹ SSI-SCA',
+    sub: 'Khởi đầu đúng hướng với 100.000đ chứng chỉ quỹ SSI-SCA tặng thẳng vào danh mục — không cần nạp thêm, bắt đầu tích lũy ngay hôm nay.',
+    chips: ['Tặng ngay 100.000đ SSI-SCA', 'Không cần nạp thêm', 'Bắt đầu tích lũy ngay'],
+    url: 'https://iboard.ssi.com.vn/open-account/?utm_source=quiz&utm_medium=offer&utm_campaign=fomo_ccq',
   }
 ];
 
 function renderCTA(key) {
-  let o;
   const expire = 'Ưu đãi áp dụng cho tài khoản mở trong tháng 5/2026';
   const label = `Ưu đãi dành riêng cho ${key}`;
+  const arrow = `<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-  if (['STALKER','THINKER','HOLDER'].includes(key)) {
-    const pick = offerGroup2[Math.floor(Math.random() * offerGroup2.length)];
-    o = { ...pick, label, expire };
-  } else if (['YOLO','FOMO'].includes(key)) {
-    const pick = offerGroup3[Math.floor(Math.random() * offerGroup3.length)];
-    o = { ...pick, label, expire };
-  } else {
-    o = { ...types[key].offer, label, expire };
+  // Single offer types — PANIC & CHILL
+  if (!['STALKER','THINKER','HOLDER','YOLO','FOMO'].includes(key)) {
+    const o = types[key].offer;
+    const lines = o.title.split('\n');
+    const offerUrl = o.url || OPEN_ACCOUNT_BASE + `?utm_source=quiz&utm_medium=offer&utm_campaign=${key.toLowerCase()}`;
+    document.getElementById('res-cta').innerHTML = `
+      <div class="cta-banner cta-red">
+        <div class="cta-offer-label">${label}</div>
+        <div class="cta-offer-title">${lines[0]}<br>${lines[1]||''}</div>
+        <div class="cta-offer-sub">${o.sub}</div>
+        <div class="cta-offer-detail">${o.chips.map(c=>`<span class="cta-chip">${c}</span>`).join('')}</div>
+        <button class="cta-btn" onclick="window.open('${offerUrl}','_blank')">Mở tài khoản SSI ngay ${arrow}</button>
+        <div class="cta-expire">${expire}</div>
+      </div>`;
+    return;
   }
 
-  const lines = o.title.split('\n');
-  const arrow = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  // Dual offer types — show both, user picks one
+  const offers = ['STALKER','THINKER','HOLDER'].includes(key) ? offerGroup2
+               : key === 'YOLO' ? offerYOLO
+               : offerFOMO;
+
+  const offerCards = offers.map((o, idx) => {
+    const lines = o.title.split('\n');
+    return `
+      <div class="dual-offer-card" id="offer-card-${idx}" onclick="selectOffer(${idx})">
+        <div class="dual-offer-check" id="offer-check-${idx}">✓</div>
+        <div class="dual-offer-title">${lines[0]}<br>${lines[1]||''}</div>
+        <div class="dual-offer-sub">${o.sub}</div>
+        <div class="dual-offer-chips">${o.chips.map(c=>`<span class="cta-chip">${c}</span>`).join('')}</div>
+        <button class="cta-btn dual-cta-btn" id="offer-btn-${idx}" onclick="event.stopPropagation();window.open('${o.url}','_blank')">
+          Mở tài khoản ngay ${arrow}
+        </button>
+      </div>`;
+  }).join('');
+
   document.getElementById('res-cta').innerHTML = `
-    <div class="cta-banner ${o.theme}">
-      <div class="cta-offer-label">${o.label}</div>
-      <div class="cta-offer-title">${lines[0]}<br>${lines[1] || ''}</div>
-      <div class="cta-offer-sub">${o.sub}</div>
-      <div class="cta-offer-detail">${o.chips.map(c => `<span class="cta-chip">${c}</span>`).join('')}</div>
-      <button class="cta-btn" onclick="window.open('${OPEN_ACCOUNT_URL}','_blank')">Mở tài khoản SSI ngay ${arrow}</button>
-      <div class="cta-expire">${o.expire}</div>
+    <div class="cta-dual-wrap">
+      <div class="cta-offer-label" style="color:var(--red);background:var(--red-light);padding:6px 12px;border-radius:20px;display:inline-block;margin-bottom:14px">${label}</div>
+      <div class="dual-offer-heading">Chọn ưu đãi bạn muốn nhận</div>
+      <div class="dual-offer-grid" id="dual-grid">
+        ${offerCards}
+      </div>
+      <div class="cta-expire" style="color:var(--text-hint);text-align:center;margin-top:10px">${expire}</div>
     </div>`;
+
+  // Auto-highlight first card
+  setTimeout(() => selectOffer(0), 50);
+}
+
+function selectOffer(idx) {
+  [0,1].forEach(i => {
+    const card = document.getElementById(`offer-card-${i}`);
+    const check = document.getElementById(`offer-check-${i}`);
+    const btn = document.getElementById(`offer-btn-${i}`);
+    if (!card) return;
+    if (i === idx) {
+      card.classList.add('selected');
+      check.style.opacity = '1';
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      card.classList.remove('selected');
+      check.style.opacity = '0';
+      btn.style.opacity = '.45';
+      btn.style.pointerEvents = 'none';
+    }
+  });
 }
 
 // ─── SHARING ──────────────────────────────────────────────────────────────
